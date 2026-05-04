@@ -1,5 +1,4 @@
-const settings = require('./settings');
-require('./config.js');
+const settings = require('./setting/settings');
 const { isBanned } = require('./lib/isBanned');
 const yts = require('yt-search');
 const { fetchBuffer } = require('./lib/myfunc');
