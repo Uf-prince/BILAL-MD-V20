@@ -15,8 +15,8 @@ global.APIs = {
 };
 
 global.APIKeys = {
-    'https://api.xteam.xyz': 'd90a9e986e18778b',
-    'https://api.lolhuman.xyz': '85faf717d0545d14074659ad',
+    'https://api.xteam.xyz': process.env.APIKEY_XTEAM || 'd90a9e986e18778b',
+    'https://api.lolhuman.xyz': process.env.APIKEY_LOL || '85faf717d0545d14074659ad',
     'https://api.neoxr.my.id': 'yourkey',
     'https://violetics.pw': 'beta',
     'https://zenzapis.xyz': 'yourkey',
@@ -24,7 +24,7 @@ global.APIKeys = {
 };
 
 module.exports = {
-    WARN_COUNT: 3,
+    WARN_COUNT: 1, // Changed to 1 for direct/fast action as per your preference
     APIs: global.APIs,
     APIKeys: global.APIKeys
 };
