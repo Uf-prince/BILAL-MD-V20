@@ -29,8 +29,8 @@ async function playCommand(sock, chatId, message) {
         const video = videos[0];
         const urlYt = video.url;
 
-        // Fetch audio data from API
-        const response = await axios.get(`http://176.100.37.91:30336/api/ytb?url=${encodeURIComponent(videoUrl));
+        // Fetch audio data from API - FIXED Variable and Bracket
+        const response = await axios.get(`http://176.100.37.91:30336/api/ytb?url=${encodeURIComponent(urlYt)}`);
         const data = response.data;
 
         if (!data || !data.status || !data.result || !data.result.downloadUrl) {
@@ -50,12 +50,11 @@ async function playCommand(sock, chatId, message) {
         }, { quoted: message });
 
     } catch (error) {
-        console.error('Error in song2 command:', error);
+        console.error('Error in playCommand:', error);
         await sock.sendMessage(chatId, { 
             text: "*Download failed. Please try again later.*"
         });
     }
 }
 
-module.exports = playCommand; 
-
+module.exports = playCommand;
