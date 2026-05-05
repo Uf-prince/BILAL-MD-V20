@@ -21,13 +21,13 @@ global.autorecordtype = false
 global.autoread = true
 global.autobio = false
 global.anti92 = false
-global.owneroff = false
+global.owneroff = true 
 global.autoswview = true
 global.autoreaction = true
 
 //~~~~~~~~~~~ Settings Thumbnail ~~~~~~~~~~~//
-global.thumbbot = "https://files.catbox.moe/e16jwg.bin"
-global.thumbown = "https://files.catbox.moe/e16jwg.bin"
+global.thumbbot = "https://whiteshadow-uploder.zone.id/files/asj.jpg"
+global.thumbown = "https://whiteshadow-uploder.zone.id/files/asj.jpg"
 
 //~~~~~~~~~~~ Settings Channel ~~~~~~~~~~~//
 global.idchannel = "120363406434037642@newsletter*"
