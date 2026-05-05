@@ -1,5 +1,4 @@
-const settings = require('../settings');
-
+const settings = require('../setting/settings');
 async function ownerCommand(sock, chatId) {
     const vcard = `
 BEGIN:VCARD
