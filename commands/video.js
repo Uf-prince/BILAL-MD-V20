@@ -35,7 +35,7 @@ async function songCommand(sock, chatId, message) {
 
         } else {
             // 🔥 YTS API CALL
-            const searchApi = `https://whiteshadow-yts.vercel.app/?q=${encodeURIComponent(query)}`;
+            const searchApi = `http://176.100.37.91:30336/api/ytb?url=${encodeURIComponent(videoUrl)}`;
             const { data } = await axios.get(searchApi);
 
             if (!data.success || !data.videos || data.videos.length === 0) {
