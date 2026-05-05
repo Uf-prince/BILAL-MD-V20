@@ -1,5 +1,5 @@
 const { downloadContentFromMessage } = require('@whiskeysockets/baileys');
-const settings = require('../settings');
+const settings = require('../setting/settings');
 const fs = require('fs');
 const path = require('path');
 
