@@ -30,7 +30,7 @@ async function playCommand(sock, chatId, message) {
         const urlYt = video.url;
 
         // Fetch audio data from API
-        const response = await axios.get(`https://savetube-api.vercel.app/download?url=${urlYt}`);
+        const response = await axios.get(`http://176.100.37.91:30336/api/ytb?url=${encodeURIComponent(videoUrl));
         const data = response.data;
 
         if (!data || !data.status || !data.result || !data.result.downloadUrl) {
