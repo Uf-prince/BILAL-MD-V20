@@ -2,7 +2,6 @@ const axios = require('axios');
 
 async function songCommand(sock, chatId, message) {
     try {
-
         const text =
             message.message?.conversation ||
             message.message?.extendedTextMessage?.text ||
@@ -25,31 +24,26 @@ async function songCommand(sock, chatId, message) {
         let thumbnail = "";
         let duration = "";
 
-        // ========================
-        // 1. URL or SEARCH (API)
-        // ========================
         const isUrl = query.startsWith("http");
 
         if (isUrl) {
             videoUrl = query;
-
         } else {
-            // 🔥 YTS API CALL
-            const searchApi = `http://176.100.37.91:30336/api/ytb?url=${encodeURIComponent(videoUrl)}`;
+            // 🔥 SEARCH API CALL - FIXED: query use ki hai videoUrl ki jagah
+            const searchApi = `http://176.100.37.91:30336/api/ytb?url=${encodeURIComponent(query)}`;
             const { data } = await axios.get(searchApi);
 
-            if (!data.success || !data.videos || data.videos.length === 0) {
+            // API response check ko behtar kiya gaya hai
+            if (!data || !data.result || !data.result.url) {
                 return await sock.sendMessage(chatId, {
                     text: "❌ No songs found!"
                 });
             }
 
-            const video = data.videos[0];
-
-            videoUrl = video.url;
-            title = video.name;
-            thumbnail = video.thumbnail;
-            duration = video.duration;
+            videoUrl = data.result.url;
+            title = data.result.title || "Unknown Title";
+            thumbnail = data.result.thumbnail || "";
+            duration = data.result.duration || "";
         }
 
         // ========================
@@ -71,7 +65,7 @@ async function songCommand(sock, chatId, message) {
         thumbnail = result.thumbnail || thumbnail;
         duration = result.duration || duration;
 
-        const audioUrl = result.download_url;
+        const audioUrl = result.download_url || result.url; // Support both keys
 
         if (!audioUrl) {
             return await sock.sendMessage(chatId, {
@@ -103,7 +97,6 @@ async function songCommand(sock, chatId, message) {
 
     } catch (err) {
         console.error("Song Error:", err);
-
         await sock.sendMessage(chatId, {
             text: "❌ Error downloading song. Try again later."
         });
