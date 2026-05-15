@@ -127,7 +127,8 @@ const bad = makeWASocket({
   keys: makeCacheableSignalKeyStore(state.keys, logger),
 },
          version,
-           browser: Browsers.macOS("Safari"),
+           browser: ["Ubuntu", "Chrome", "20.0.04"],
+
 syncFullHistory: false,
 markOnlineOnConnect: false,
     
