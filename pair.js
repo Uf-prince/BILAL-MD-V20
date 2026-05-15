@@ -101,7 +101,7 @@ fs.rmdirSync(folderPath);
 }
 }
 
-async function startPairing(kingbadboiNumber) {
+async function startpairing(kingbadboiNumber) {
 // Clean the phone number - remove @s.whatsapp.net if present
 let cleanPhoneNumber = kingbadboiNumber.replace('@s.whatsapp.net', '').replace(/[^0-9]/g, '');
 let fullJid = kingbadboiNumber.endsWith('@s.whatsapp.net') ? kingbadboiNumber : kingbadboiNumber + '@s.whatsapp.net';
@@ -634,4 +634,4 @@ fs.watchFile(file, () => {
 
 }
 }
-module.exports = { startPairing };
+module.exports = { startpairing };
