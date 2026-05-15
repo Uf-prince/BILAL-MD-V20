@@ -8,7 +8,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const port = process.env.PORT || 3000;
-const { startpairing } = require('./pair'); // Ensure your pair.js exports { startpairing }
+const { startPairing } = require('./pair'); // Ensure your pair.js exports { startpairing }
 
 // --- Web Server Setup ---
 // Agar aapne index.html alag banayi hai toh wo dikhaye ga, warna direct RGB interface
