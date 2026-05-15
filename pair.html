@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BILAL-MD PAIRING CODE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Courier New', Courier, monospace; }
+        
+        body {
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Animated RGB Border Box */
+        .container {
+            position: relative;
+            width: 380px;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 15px;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            z-index: -1;
+            background-size: 400%;
+            border-radius: 16px;
+            animation: glowing 20s linear infinite;
+            filter: blur(5px);
+        }
+
+        @keyframes glowing {
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
+        }
+
+        h2 { color: #fff; text-shadow: 0 0 10px #00ffd5; margin-bottom: 20px; letter-spacing: 2px; }
+
+        .input-group { position: relative; margin-bottom: 25px; }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 1px solid #00ffd5;
+            outline: none;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        input:focus { box-shadow: 0 0 15px #00ffd5; }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #00ffd5;
+            border: none;
+            color: #000;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            background: #fff;
+            box-shadow: 0 0 20px #fff;
+            transform: scale(1.05);
+        }
+
+        #pair-code-display {
+            margin-top: 25px;
+            padding: 15px;
+            background: #111;
+            border: 1px dashed #00ffd5;
+            color: #ff00c8;
+            font-size: 24px;
+            font-weight: bold;
+            display: none;
+            letter-spacing: 5px;
+            text-shadow: 0 0 5px #ff00c8;
+        }
+
+        .status { color: #00ffd5; font-size: 12px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2><i class="fa-brands fa-whatsapp"></i> BILAL-MD</h2>
+        <p style="color: #888; font-size: 13px; margin-bottom: 20px;">Enter Number With Country Code</p>
+        
+        <div class="input-group">
+            <input type="number" id="number" placeholder="923xxxxxxxxx">
+        </div>
+
+        <button onclick="submitNumber()" id="submit-btn">Get Pairing Code</button>
+
+        <div id="pair-code-display"></div>
+        <p class="status" id="status-text"></p>
+    </div>
+
+    <script>
+        async function submitNumber() {
+            const number = document.getElementById('number').value;
+            const btn = document.getElementById('submit-btn');
+            const display = document.getElementById('pair-code-display');
+            const status = document.getElementById('status-text');
+
+            if (!number) return alert("Please enter your number!");
+
+            btn.innerText = "Generating...";
+            status.innerText = "Please wait, connecting to server...";
+
+            try {
+                // Aapke backend api ka path yahan aayega
+                const response = await fetch(`/code?number=${number}`);
+                const data = await response.json();
+
+                if (data.code) {
+                    display.innerText = data.code;
+                    display.style.display = 'block';
+                    status.innerText = "Code Generated! Copy and link in WhatsApp.";
+                    btn.innerText = "Get New Code";
+                } else {
+                    status.innerText = "Error: Connection Failed. Try again.";
+                    btn.innerText = "Get Pairing Code";
+                }
+            } catch (err) {
+                status.innerText = "Server Error. Check Heroku Logs!";
+                btn.innerText = "Retry";
+            }
+        }
+    </script>
+</body>
+</html>
+
