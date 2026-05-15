@@ -633,4 +633,4 @@ fs.watchFile(file, () => {
 
 }
 }
-module.exports = startpairing;
+module.exports = { startpairing };
