@@ -1,4 +1,5 @@
 module.exports = {
-  BOT_TOKEN: '8670435238:AAFe-kss9EtsiLu3yHpgEl_LgVN8oY-0SDU',  
+  BOT_TOKEN: '8738070608:AAFyXR1pgwvuF8HmC_OBrefqeb7m1WWFsDU
+',  
   startupPassword: 'shazam'
 };
