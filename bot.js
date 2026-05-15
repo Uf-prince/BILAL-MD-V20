@@ -5,7 +5,8 @@ const chalk = require('chalk');
 const startpairing = require('./pair'); // Import your pair.js module
 
 // Replace with your actual bot token from @BotFather
-const BOT_TOKEN = '8874858049:AAEmM-C5kz0y_sRYQtPsMmXTKSxlEypxbCA';
+const BOT_TOKEN = '8738070608:AAFyXR1pgwvuF8HmC_OBrefqeb7m1WWFsDU
+';
 
 const bot = new TelegramBot(BOT_TOKEN, { polling: true });
 
