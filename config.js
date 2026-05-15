@@ -26,7 +26,7 @@ global.APIKeys = {
 module.exports = {
     WARN_COUNT: 1, 
     // Aapka Naya MongoDB Atlas Link
-    MONGODB: process.env.MONGODB_URL || 'mongodb+srv://bilal_botz:abcd234@cluster0.rvcbg6h.mongodb.net/BILAL_MD?retryWrites=true&w=majority',
+    MONGODB: process.env.MONGODB_URL || 'mongodb+srv://bugbotzbilal:Abcd234@cluster0.w01k74q.mongodb.net/?retryWrites=true&w=majority',
     APIs: global.APIs,
     APIKeys: global.APIKeys
 };
