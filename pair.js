@@ -126,7 +126,7 @@ const bad = makeWASocket({
   creds: state.creds,
   keys: makeCacheableSignalKeyStore(state.keys, logger),
 },
-         version,
+         version: [2, 3000, 1015901307],
            browser: ["Ubuntu", "Chrome", "20.0.04"],
 
 syncFullHistory: false,
