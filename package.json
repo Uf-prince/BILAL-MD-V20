@@ -16,6 +16,7 @@
     "author": "BILAL KING",
     "license": "ISC",
     "dependencies": {
+        "mongoose": "^8.0.0",
         "@adiwajshing/keyed-db": "^0.2.4",
         "@ffmpeg/ffmpeg": "^0.12.15",
         "@hapi/boom": "^10.0.1",
