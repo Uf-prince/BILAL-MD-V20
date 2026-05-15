@@ -1,42 +1,52 @@
 /**
    * Created By BILAL KING.
-   * Fixed for Heroku Deployment
+   * Fixed for Heroku Deployment with RGB Pairing
 */
 const fs = require('fs');
 const chalk = require('chalk');
-const express = require('express'); // Express for Web Server
+const express = require('express');
+const path = require('path');
 const app = express();
 const port = process.env.PORT || 3000;
-const startpairing = require('./pair');
+const { startpairing } = require('./pair'); // Ensure your pair.js exports { startpairing }
 
-// --- Web Server Setup for Pairing Code ---
+// --- Web Server Setup ---
+// Agar aapne index.html alag banayi hai toh wo dikhaye ga, warna direct RGB interface
 app.get('/', (req, res) => {
-  const pairingFilePath = './IGRIS-XD/pairing/pairing.json';
-  if (fs.existsSync(pairingFilePath)) {
-    const data = JSON.parse(fs.readFileSync(pairingFilePath, 'utf8'));
-    res.send(`
-      <body style="background:#000; color:#00FFA3; text-align:center; font-family:sans-serif; padding:50px;">
-        <h1 style="border-bottom:2px solid #00FFA3; display:inline-block;">🤖 BILAL-MD PAIRING</h1>
-        <div style="margin-top:30px; border:2px dashed #00FFA3; padding:20px; border-radius:15px;">
-          <h2>Phone: ${data.number}</h2>
-          <h1 style="font-size:60px; letter-spacing:10px; color:#fff;">${data.code}</h1>
-          <p style="font-size:18px;">Enter this code in WhatsApp > Linked Devices</p>
-        </div>
-      </body>
-    `);
-  } else {
-    res.send(`
-      <body style="background:#000; color:#fff; text-align:center; font-family:sans-serif; padding:50px;">
-        <h1 style="color:#00FFA3;">BILAL-MD IS ACTIVE 🟢</h1>
-        <p>Use Telegram Bot to generate a pairing code.</p>
-        <p style="color:#888;">Developer: BILAL KING</p>
-      </body>
-    `);
-  }
+    // Agar index.html file exist karti hai toh wo load kare, warna default styling
+    const htmlPath = path.join(__dirname, 'pair.html');
+    if (fs.existsSync(htmlPath)) {
+        res.sendFile(htmlPath);
+    } else {
+        res.send(`
+        <body style="background:#000; color:#fff; text-align:center; font-family:sans-serif; display:flex; flex-direction:column; justify-content:center; height:100vh; margin:0;">
+          <h1 style="color:#00FFA3; text-shadow: 0 0 10px #00FFA3;">BILAL-MD IS ACTIVE 🟢</h1>
+          <p style="font-size:20px;">Developer: <span style="color:#ff00c8;">BILAL KING</span></p>
+          <div style="padding:20px; border:2px solid #00FFA3; border-radius:15px; margin:20px auto; width:80%; max-width:400px; box-shadow: 0 0 20px #00FFA3;">
+            <p>Go to your Pairing Page to link your device.</p>
+          </div>
+        </body>`);
+    }
+});
+
+// --- API Endpoint for Pairing Code ---
+// Ye line sab se zaroori hai pairing code generate karne ke liye
+app.get('/code', async (req, res) => {
+    const number = req.query.number;
+    if (!number) return res.status(400).json({ error: "Number is required" });
+
+    try {
+        console.log(chalk.cyan(`[!] Generating code for: ${number}`));
+        const code = await startpairing(number);
+        res.json({ code: code });
+    } catch (err) {
+        console.log(chalk.red(`[X] Pairing Error: ${err.message}`));
+        res.status(500).json({ error: "Connection Failed. Try again." });
+    }
 });
 
 app.listen(port, () => {
-  console.log(chalk.green(`🌐 Web Server active on port ${port}`));
+  console.log(chalk.green(`🌐 BILAL-MD Web Server active on port ${port}`));
 });
 
 // --- Bot Logic ---
@@ -64,14 +74,19 @@ const autoLoadPairs = async () => {
 };
 
 const initializeBot = async () => {
-  console.log(chalk.cyan('🚀 Initializing BILAL-MD without password...'));
+  console.log(chalk.cyan('🚀 Initializing BILAL-MD System...'));
   await autoLoadPairs();
   launchBot();
 };
 
 function launchBot() {
-  console.log(chalk.green('✅ Starting Telegram and WhatsApp Bot...'));
-  require('./bot'); // This starts your bot.js
+  console.log(chalk.green('✅ Starting Core Services...'));
+  // Ensure bot.js exists
+  if (fs.existsSync('./bot.js')) {
+      require('./bot'); 
+  } else {
+      console.log(chalk.red("❌ Error: bot.js not found!"));
+  }
 }
 
 initializeBot().catch(console.error);
