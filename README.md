@@ -1,5 +1,5 @@
 # 🤖 BILAL-MD BOT
-# [DEPLOY](https://dashboard.heroku.com/new?template=https://github.com/Uf-prince/BILAL-MD-MINI-V20)
+# [DEPLOY](https://dashboard.heroku.com/new?template=https://github.com/Uf-prince/BILAL-MD-V20)
 A powerful and customizable **WhatsApp Multi-Device Bot** built using the Baileys library. It features group moderation, auto replies, stickers, media tools, games, and more — all optimized for modern WhatsApp multi-device support.
 
 <div align="center"> 
