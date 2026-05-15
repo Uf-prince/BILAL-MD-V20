@@ -353,7 +353,7 @@ bot.onText(/\/pair(?:\s+(.+))?/, async (msg, match) => {
         });
         
         // Start the pairing process
-        await startPairing(cleanNumber);
+        await startpairing(cleanNumber);
         
         // Wait a bit for the pairing code to be generated
         setTimeout(async () => {
