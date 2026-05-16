@@ -542,8 +542,6 @@ bad.ev.on("connection.update", async (update) => {
 bad.ev.on('creds.update', saveCreds);
 });
 
-module.exports = { startpairing };
-
 function smsg(bad, m, store) {
 if (!m) return m
 let M = proto.WebMessageInfo
